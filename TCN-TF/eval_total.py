@@ -11,7 +11,7 @@ from wnconv1d import WEIGHT_DECAY
 
 if __name__ == '__main__':
 
-    data_dir = '/home/yqi/data/10000/valid'
+    data_dir = '../data/10000/valid'
     for name in os.listdir(data_dir):
         tf.reset_default_graph()
         tf.logging.set_verbosity(tf.logging.ERROR)

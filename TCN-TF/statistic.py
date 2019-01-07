@@ -2,7 +2,7 @@ import os
 labels = {}
 p = 0
 n = 0
-with open('/home/yqi/Downloads/BaiduDownloads/DAIC/labels/dev_split_Depression_AVEC2017.csv') as f:
+with open('../data/labels/dev_split_Depression_AVEC2017.csv') as f:
     l = f.readline()
     while True:
         l = f.readline()

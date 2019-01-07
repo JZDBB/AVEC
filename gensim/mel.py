@@ -4,7 +4,7 @@ import numpy as np
 # import librosa.display
 import os
 
-data_dir = 'data/10001/'
+data_dir = '../data/10001/'
 dirs = os.listdir(data_dir)
 for d in dirs:
     print(d)

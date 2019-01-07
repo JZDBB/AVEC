@@ -9,7 +9,7 @@ os.environ["CUDA_VISIBLE_DEVICES"]="-1"
 
 if __name__ == '__main__':
     net = TCN([128, 128, 128, 128, 128], stride=1, kernel_size=5, dropout=0.5)
-    data_dir = '/home/yqi/data/10000/valid'
+    data_dir = '../data/10000/valid'
     filenames = tf.train.match_filenames_once(os.path.join(data_dir, '*.records'))
     mel, lin, label, PHQ = PANOReader(filenames, 16, 32, 32, num_epochs=100, drop_remainder=False).read()
     mel = tf.contrib.layers.batch_norm(mel, is_training=net.is_training)

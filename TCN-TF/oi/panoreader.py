@@ -2,7 +2,7 @@ import tensorflow as tf
 import os
 import cv2
 import numpy as np
-from oi import tfrecordsreader
+from TCN.oi import tfrecordsreader
 
 
 class PANOReader(tfrecordsreader.TFRecordsReader):

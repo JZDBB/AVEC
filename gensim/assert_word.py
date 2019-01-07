@@ -8,8 +8,8 @@ for d in dirs:
     name = d.split('_')[0]
     csv_file = name + '_TRANSCRIPT.csv'
     out_file = name + '_WORD.csv'
-    of = open(os.path.join(data_dir, out_file), 'w')
-    with open(os.path.join(data_dir, csv_file), 'r') as f:
+    of = open(os.path.join(curr, out_file), 'w')
+    with open(os.path.join(curr, csv_file), 'r') as f:
         f.readline()
         while True:
             l = f.readline().lower().replace('\n', '').replace('\r', '').split('\t')

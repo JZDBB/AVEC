@@ -1,4 +1,4 @@
-from tcn import TemporalConvNet as TCN
+from TCN.tcn import TemporalConvNet as TCN
 import tensorflow as tf
 import os
 from oi.panoreader import PANOReader
@@ -6,7 +6,7 @@ from wnconv1d import WEIGHT_DECAY
 
 if __name__ == '__main__':
     net = TCN([128, 128, 128, 128, 128], stride=1, kernel_size=5, dropout=0.5)
-    data_dir = '/home/yqi/data/10000/train'
+    data_dir = '../data/10000/train'
     filenames = tf.train.match_filenames_once(os.path.join(data_dir, '*.records'))
     mel, lin, label, PHQ = PANOReader(filenames, 16, 32, 32, num_epochs=None, drop_remainder=False).read()
     mel = tf.contrib.layers.batch_norm(mel, is_training=net.is_training)

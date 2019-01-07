@@ -30,7 +30,7 @@ class converter(object):
     def convert(self):
         labels = {}
         PHQs = {}
-        with open('/home/yqi/Downloads/BaiduDownloads/DAIC/labels/train_split_Depression_AVEC2017.csv') as f:
+        with open('../data/labels/train_split_Depression_AVEC2017.csv') as f:
             l = f.readline()
             while True:
                 l = f.readline()
@@ -42,7 +42,7 @@ class converter(object):
                 labels[id] = label
                 PHQs[id] = PHQ
 
-        with open('/home/yqi/Downloads/BaiduDownloads/DAIC/labels/dev_split_Depression_AVEC2017.csv') as f:
+        with open('../data/labels/dev_split_Depression_AVEC2017.csv') as f:
             l = f.readline()
             while True:
                 l = f.readline()
@@ -53,7 +53,7 @@ class converter(object):
                 PHQ = float(PHQ)
                 labels[id] = label
                 PHQs[id] = PHQ
-        data_dir = '/home/yqi/data/10001/'
+        data_dir = '../data/10001/'
         dirs = os.listdir(data_dir)
         for dd in labels.keys():
             print(dd)

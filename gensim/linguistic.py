@@ -25,10 +25,8 @@ for d in dirs:
             if i in keys:
                 for j in range(300):
                     f.write('%f,'%model[word[i]][j])
-                    # f.write(',')
                 f.write('\n')
             else:
                 for j in range(300):
                     f.write('0,')
-                    # f.write(',')
                 f.write('\n')

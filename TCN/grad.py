@@ -1,9 +1,8 @@
 from torch.utils.data import Dataset, DataLoader
 import pandas as pd
-import os
 from sklearn.externals import joblib
 import numpy as np
-from model import TCN
+from TCN.model import TCN
 import torch
 from torch import nn
 import torch.optim as optim
