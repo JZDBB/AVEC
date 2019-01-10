@@ -51,3 +51,10 @@ writer.add_embedding(features, metadata=label, label_img=images.unsqueeze(1))
 # export scalar data to JSON for external processing
 writer.export_scalars_to_json("./all_scalars.json")
 writer.close()
+
+# 保存和加载整个模型
+# torch.save(model, 'model.pkl')
+# model = torch.load('model.pkl')
+# 仅保存和加载模型参数(推荐使用)
+# torch.save(model.state_dict(), 'params.pkl')
+# model.load_state_dict(torch.load('params.pkl'))

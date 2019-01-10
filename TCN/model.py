@@ -1,6 +1,6 @@
 import torch
 from torch import nn
-from TCN.tcn import TemporalConvNet
+from tcn import TemporalConvNet
 from tensorboardX import SummaryWriter
 
 

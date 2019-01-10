@@ -2,7 +2,7 @@ from torch.utils.data import Dataset, DataLoader
 import pandas as pd
 from sklearn.externals import joblib
 import numpy as np
-from TCN.model import TCN
+from model import TCN
 import torch
 from torch import nn
 import torch.optim as optim
@@ -57,10 +57,6 @@ class mDataset(Dataset):
         self.keys = list(label.keys())
         self.num_people = len(self.keys)
 
-
-
-
-
     def __len__(self):
         return 99999999
 
@@ -76,37 +72,42 @@ class mDataset(Dataset):
                 ret.append(pool[dice])
         return ret, self.label[id], self.phq[id]
 
-a = mDataset('../gensim/WORD.csv', '../gensim')
-b = iter(DataLoader(a, batch_size=1, shuffle=True, num_workers=1))
+def main():
+    a = mDataset('../gensim/WORD.csv', '../gensim')
+    b = iter(DataLoader(a, batch_size=1, shuffle=True, num_workers=1))
 
-model = TCN(300, 300, [512, 1024, 512, 512], 2, dropout=0.2)
-model.cuda()
+    model = TCN(300, 300, [512, 1024, 512, 512], 2, dropout=0.2)
+    model.cuda()
 
-criterion = nn.CrossEntropyLoss()
+    criterion = nn.CrossEntropyLoss()
 
-optimizer = optim.Adam(model.parameters(), lr=1e-8, weight_decay=1e-4)
+    optimizer = optim.Adam(model.parameters(), lr=1e-8, weight_decay=1e-4)
 
-writer = model.writer
+    writer = model.writer
 
-i = 0
-tp = 0
-fn = 0
-fp = 0
-tn = 0
-while True:
-    optimizer.zero_grad()
-    feat, label, _ = next(b)
-    feat = [f.cuda() for f in feat]
-    label = label.cuda()
-    logits = model([feat, i])
-    loss = criterion(logits, label)
-    loss.backward()
-    nn.utils.clip_grad_norm(filter(lambda p: p.requires_grad, model.parameters()), max_norm=0.2)
-    optimizer.step()
-    if i % 1 == 0:
-        prediction = torch.argmax(logits, dim=-1)
-        writer.add_histogram("prediction", prediction.cpu().data.numpy(), i)
-        writer.add_scalar('loss', loss.item(), i)
-    #adjust_learning_rate(optimizer, 0.997, 100, i)
-    i += 1
+    i = 0
+    tp = 0
+    fn = 0
+    fp = 0
+    tn = 0
+    while True:
+        optimizer.zero_grad()
+        feat, label, _ = next(b)
+        feat = [f.cuda() for f in feat]
+        label = label.cuda()
+        logits = model([feat, i])
+        loss = criterion(logits, label)
+        loss.backward()
+        nn.utils.clip_grad_norm(filter(lambda p: p.requires_grad, model.parameters()), max_norm=0.2)
+        optimizer.step()
+        torch.save(model.state_dict(), '')
 
+        if i % 1 == 0:
+            prediction = torch.argmax(logits, dim=-1)
+            writer.add_histogram("prediction", prediction.cpu().data.numpy(), i)
+            writer.add_scalar('loss', loss.item(), i)
+        # adjust_learning_rate(optimizer, 0.997, 100, i)
+        i += 1
+
+if __name__ == '__main__':
+    main()
