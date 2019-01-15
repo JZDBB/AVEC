@@ -64,6 +64,7 @@ word_dict = {}
 for w in model.wv.vocab:
     word_dict[w] = model[w]
 joblib.dump(word_dict,'word.pkl',compress = 3)
+
 print(model.wv.most_similar(positive='mom'))
 visualizeWords = ['a', 'what', 'an', 'when', 'dad', 'mom', 'mother', 'one', 'two', 'thanks', 'nephew', 'i', 'me', 'you',
                   'were', 'was', 'are', 'is', '<synch>', '<laughter>', 'today', 'to', 'talk', 'here', 'learn', 'with', 'just', 'mixture']

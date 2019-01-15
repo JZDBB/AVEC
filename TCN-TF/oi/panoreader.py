@@ -2,7 +2,7 @@ import tensorflow as tf
 import os
 import cv2
 import numpy as np
-from TCN.oi import tfrecordsreader
+from oi import tfrecordsreader
 
 
 class PANOReader(tfrecordsreader.TFRecordsReader):
@@ -44,7 +44,7 @@ class PANOReader(tfrecordsreader.TFRecordsReader):
         return mel, lin, label, PHQ
 
 if __name__ == '__main__':
-    data_dir = '/home/yqi/data/10001/300_P'
+    data_dir = '../data/10001/300_P'
     filenames = tf.train.match_filenames_once(os.path.join(data_dir, '*.records'))
     mel, lin, label = PANOReader(filenames, 1, 10, 4, num_epochs=1, drop_remainder=False).read()
 

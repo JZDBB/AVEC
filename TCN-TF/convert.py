@@ -5,7 +5,6 @@ import os
 
 
 class converter(object):
-
     def __init__(self):
         pass
 
@@ -65,20 +64,20 @@ class converter(object):
             mel_file = name + '_LOGMEL.csv'
             records_file = name + '_TF.records'
             f_lin = open(os.path.join(curr, lin_file))
-            # f_mel = open(os.path.join(curr, mel_file))
+            f_mel = open(os.path.join(curr, mel_file))
             writer = tf.python_io.TFRecordWriter(os.path.join(curr, records_file))
             lin = f_lin.read().split('\n')[:-1]
-            # mel = f_mel.read().split('\n')[:-1]
+            mel = f_mel.read().split('\n')[:-1]
             frames = []
             ls = []
             ms = []
             for i in range(len(lin) // 249 * 249):
                 ls.extend([float(l) for l in lin[i].split(',')[:-1]])
-                # a = [float(m) for m in mel[i].split(',')[:-1]]
-                # if ls[0] == 0:
-                #     ms.extend([0.]*240)
-                # else:
-                #     ms.extend([float(m) for m in mel[i].split(',')[:-1]])
+                a = [float(m) for m in mel[i].split(',')[:-1]]
+                if ls[0] == 0:
+                    ms.extend([0.]*240)
+                else:
+                    ms.extend([float(m) for m in mel[i].split(',')[:-1]])
                 if i % 249 == 248:
                     num_zero = 0
                     for l in ls:
@@ -93,7 +92,7 @@ class converter(object):
                     ms = []
             for f in frames:
                 example = tf.train.Example(features=tf.train.Features(feature={
-                    # 'mel': self.__float_feature(f['mel']),
+                    'mel': self.__float_feature(f['mel']),
                     'lin': self.__float_feature(f['lin']),
                     'label': self.__int64_feature(labels[name]),
                     'PHQ': self.__float_feature(PHQs[name])

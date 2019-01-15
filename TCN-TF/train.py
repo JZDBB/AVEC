@@ -1,4 +1,4 @@
-from TCN.tcn import TemporalConvNet as TCN
+from tcn import TemporalConvNet as TCN
 import tensorflow as tf
 import os
 from oi.panoreader import PANOReader
@@ -18,7 +18,7 @@ if __name__ == '__main__':
     logits = tf.contrib.layers.fully_connected(feat, 2, None, weights_regularizer=tf.contrib.layers.l2_regularizer(WEIGHT_DECAY))
     sc = tf.contrib.layers.fully_connected(feat, 26, None, weights_regularizer=tf.contrib.layers.l2_regularizer(WEIGHT_DECAY))
     tf.summary.histogram("sc", sc)
-    weights = tf.where(tf.equal(label, 0), tf.ones_like(label), tf.ones_like(label))
+    weights = tf.where(tf.equal(label, 0), tf.ones_like(label), tf.ones_like(label))#
     loss = tf.losses.sparse_softmax_cross_entropy(label, logits, weights=weights)
     tf.summary.scalar("loss/cls_loss", loss)
     regress = tf.losses.sparse_softmax_cross_entropy(tf.to_int64(PHQ), sc)
@@ -35,9 +35,9 @@ if __name__ == '__main__':
     precision, prediction_update_op = tf.metrics.precision(labels=label, predictions=predictions,
                                                                      name="metric_precision")
     recall, recall_update_op = tf.metrics.recall(labels=label, predictions=predictions,
-                                                           name="metric_recall")
+                                                                     name="metric_recall")
     accuracy, accuracy_update_op = tf.metrics.accuracy(labels=label, predictions=predictions,
-                                                                 name="metric_accuracy")
+                                                                     name="metric_accuracy")
     with tf.control_dependencies([recall_update_op, prediction_update_op]):
         f1_score = 2 * precision * recall / (precision + recall)
     with tf.name_scope('scores'):

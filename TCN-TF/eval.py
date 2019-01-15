@@ -22,7 +22,7 @@ if __name__ == '__main__':
     sc = tf.contrib.layers.fully_connected(feat, 26, None,
                                            weights_regularizer=tf.contrib.layers.l2_regularizer(WEIGHT_DECAY))
     tf.summary.histogram("sc", sc)
-    weights = tf.where(tf.equal(label, 0), tf.ones_like(label), tf.ones_like(label))
+    weights = tf.where(tf.equal(label, 0), tf.ones_like(label), tf.ones_like(label))#
     loss = tf.losses.sparse_softmax_cross_entropy(label, logits, weights=weights)
     tf.summary.scalar("loss/cls_loss", loss)
     regress = tf.losses.sparse_softmax_cross_entropy(tf.to_int64(PHQ), sc)

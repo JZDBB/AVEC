@@ -12,9 +12,12 @@ with open('../data/labels/train_split_Depression_AVEC2017.csv') as f:
         labels[id] = label
 
 for k in labels.keys():
-    res = '../data/10001/%s_P/%s_TF.records ' % (k, k)
-    des = '../data/10000/train/%s_TF.records' % (k)
-    shutil.copy(res, des)
+    try:
+        res = '../data/10001/%s_P/%s_TF.records ' % (k, k)
+        des = '../data/10000/train/%s_TF.records' % (k)
+        shutil.copy(res, des)
+    except:
+        continue
 
     # Link
     # cmd = 'ln -s /data/10001/%s_P/%s_TF.records /data/10000/train/%s_TF.records' % (k, k, k)
@@ -32,9 +35,12 @@ with open('../data/labels/dev_split_Depression_AVEC2017.csv') as f:
         labels[id] = label
 
 for k in labels.keys():
-    res = '../data/10001/%s_P/%s_TF.records ' % (k, k)
-    des = '../data/10000/valid/%s_TF.records' % (k)
-    shutil.copy(res, des)
+    try:
+        res = '../data/10001/%s_P/%s_TF.records ' % (k, k)
+        des = '../data/10000/valid/%s_TF.records' % (k)
+        shutil.copy(res, des)
+    except:
+        continue
 
     # cmd = 'ln -s /data/10001/%s_P/%s_TF.records /data/10000/valid/%s_TF.records' % (k, k, k)
     # os.system(cmd)
